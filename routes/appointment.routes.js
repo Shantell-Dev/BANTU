@@ -1,7 +1,9 @@
+const { isAuthenticated } = require("../middleware/jwt.middleware");
+
 const router = require("express").Router();
  
 
-router.get('/appointments', verifyJWT, async (req, res) => {
+router.get('/appointments', isAuthenticated, async (req, res) => {
     const email = req.query.email;
     const decodedEmail = req.decoded.email;
 
@@ -37,4 +39,6 @@ router.get('/appointmentlist', async(req, res) => {
  }
  const result= await appointmentsCollection.insertOne(appointment);
  res.send(result);
-})
+});
+
+module.exports = router;
