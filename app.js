@@ -1,5 +1,4 @@
 // app.js
-
 const { isAuthenticated } = require("./middleware/jwt.middleware");
 const express = require("express");
 const app = express();
@@ -16,8 +15,8 @@ app.use("/api", isAuthenticated, appointmentRouter);
 const clientRouter = require("./routes/client.routes");
 app.use("/api", isAuthenticated, clientRouter);
 
-// const serviceRouter = require("./routes/service.routes");
-// app.use("/api", isAuthenticated, serviceRouter);
+const serviceRouter = require("./routes/service.routes");
+app.use("/api", isAuthenticated, serviceRouter);
 
 const authRouter = require("./routes/auth.routes");
 app.use("/auth", authRouter);
