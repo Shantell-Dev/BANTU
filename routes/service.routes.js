@@ -4,17 +4,17 @@ const Service = require("../models/Services.model");
 
 router.post("/service", (req, res, next) => {
   const { name, duration, price, description } = req.body;
-
   Service.create({ name, duration, price, description: [] })
     .then((response) => res.json(response))
     .catch((err) => res.json(err));
 });
+
 router.get("/service", (req, res, next) => {
   Service.find()
-    .populate("")
-    .then((allservice) => res.json(allService))
+    .then((allService) => res.json(allService))
     .catch((err) => res.json(err));
 });
+
 router.get("/service/:serviceId", (req, res, next) => {
   const { serviceId } = req.params;
 
@@ -41,7 +41,6 @@ router.put("/service/:serviceId", (req, res, next) => {
 });
 router.delete("/service/:serviceId", (req, res, next) => {
   const { serviceId } = req.params;
-
 
   Service.findByIdAndRemove(serviceId)
     .then(() =>

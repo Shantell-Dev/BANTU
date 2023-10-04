@@ -8,7 +8,7 @@ const app = express();
 
 //require("./error-handling")(app);
 
-// require("./config")(app);
+require("./.config")(app);
 require("./db");
 //  Start handling routes here
 // const allRoutes = require("./routes");
@@ -23,8 +23,8 @@ app.use(
   serviceRouter
 );
 
-app.all("*", () => {
-  throw new Error("This page is not found in Bantu");
-});
+// app.all("*", () => {
+//   throw new Error("This page is not found in Bantu");
+// });
 
 module.exports = app;
