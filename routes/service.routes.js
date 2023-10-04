@@ -1,6 +1,6 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const Service = require('../models/service');
+const Service = require("../models/Services.model");
 
 router.post("/service", (req, res, next) => {
   const { name, duration, price, description } = req.body;
@@ -42,10 +42,6 @@ router.put("/service/:serviceId", (req, res, next) => {
 router.delete("/service/:serviceId", (req, res, next) => {
   const { serviceId } = req.params;
 
-  if (!mongoose.Types.ObjectId.isValid(serviceId)) {
-    res.status(400).json({ message: "Specified id is not valid" });
-    return;
-  }
 
   Service.findByIdAndRemove(serviceId)
     .then(() =>

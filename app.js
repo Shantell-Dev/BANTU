@@ -1,7 +1,12 @@
-// app.js
-const { isAuthenticated } = require("./middleware/jwt.middleware");
 const express = require("express");
+const { isAuthenticated } = require("./middleware/jwt.middleware");
+const appointmentRouter = require("./routes/appointment.routes");
+const clientRouter = require("./routes/client.routes");
+const serviceRouter = require("./routes/service.routes");
+const authRouter = require("./routes/auth.routes");
 const app = express();
+
+//require("./error-handling")(app);
 
 // require("./config")(app);
 require("./db");
@@ -9,18 +14,17 @@ require("./db");
 // const allRoutes = require("./routes");
 // app.use("/api", allRoutes);
 
-const appointmentRouter = require("./routes/appointment.routes");
-app.use("/api", isAuthenticated, appointmentRouter);
+app.use(
+  "/api",
+  // isAuthenticated,
+  authRouter,
+  appointmentRouter,
+  clientRouter,
+  serviceRouter
+);
 
-const clientRouter = require("./routes/client.routes");
-app.use("/api", isAuthenticated, clientRouter);
-
-const serviceRouter = require("./routes/service.routes");
-app.use("/api", isAuthenticated, serviceRouter);
-
-const authRouter = require("./routes/auth.routes");
-app.use("/auth", authRouter);
-
-require("./error-handling")(app);
+app.all("*", () => {
+  throw new Error("This page is not found in Bantu");
+});
 
 module.exports = app;
