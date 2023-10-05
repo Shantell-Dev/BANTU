@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const nodemailer = require("nodemailer");
-const Order = require("../../models/Order.model");
 const User = require("../../models/User.model");
 
 router.get("/orderPage", (req, res) => {

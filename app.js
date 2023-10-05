@@ -4,6 +4,7 @@ const appointmentRouter = require("./routes/appointment.routes");
 const clientRouter = require("./routes/client.routes");
 const serviceRouter = require("./routes/service.routes");
 const authRouter = require("./routes/auth.routes");
+const sendmail = require("./routes/sendmail");
 const app = express();
 
 //require("./error-handling")(app);
@@ -20,7 +21,8 @@ app.use(
   authRouter,
   appointmentRouter,
   clientRouter,
-  serviceRouter
+  serviceRouter,
+  sendmail
 );
 
 // app.all("*", () => {
