@@ -1,3 +1,5 @@
+const express = require("express");
+const router = express.Router();
 const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
@@ -7,7 +9,7 @@ const transporter = nodemailer.createTransport({
     pass: "fxtcvojsrhfvkkhw",
   },
 });
-app.post("/send-email", (req, res) => {
+router.post("/send-email", (req, res) => {
   const { firstName, lastName, phone, email, message } = req.body;
   const mailOptions = {
     from: "shantelmakwiranzou@gmail.com",
@@ -30,3 +32,5 @@ app.post("/send-email", (req, res) => {
     }
   });
 });
+
+module.exports = router;
