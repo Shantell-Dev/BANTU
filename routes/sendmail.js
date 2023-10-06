@@ -24,11 +24,9 @@ app.post("/send-email", (req, res) => {
   };
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      console.error(error);
-      res.status(500).send("Error sending email");
+      console.error("Error sending email:", error);
     } else {
-      console.log("Email sent: " + info.response);
-      res.status(200).send("Email sent successfully");
+      console.log("Email sent:", info.response);
     }
   });
 });
