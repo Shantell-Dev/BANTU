@@ -2,7 +2,7 @@ const { isAuthenticated } = require("../middleware/jwt.middleware");
 const nodemailer = require("nodemailer");
 const router = require("express").Router();
 
-router.get("/appointments", isAuthenticated, async (req, res) => {
+router.get("/appointment", isAuthenticated, async (req, res) => {
   const { name, email, date, time, service } = req.body;
   const decodedEmail = req.decoded.email;
 
@@ -11,10 +11,10 @@ router.get("/appointments", isAuthenticated, async (req, res) => {
   }
 
   const query = { email: email };
-  const appointments = await appointmentsCollection.find(query).toArray();
-  res.send(appointments);
+  const appointment = await appointmentCollection.find(query).toArray();
+  res.send(appointment);
 });
-router.post("/appointments", async (req, res) => {
+router.post("/appointment", async (req, res) => {
   const { name, email, date, time, service } = req.body;
   const appointment = req.body;
   console.log(appointment);
@@ -29,7 +29,7 @@ router.post("/appointments", async (req, res) => {
     status: "scheduled",
   };
   try {
-    const appointment = await Appointment.create(appointmentData);
+    const appointment = await appointment.create(appointmentData);
     res.json({ success: true, appointment });
   } catch (error) {
     console.error("Error creating appointment:", error);
@@ -40,17 +40,17 @@ router.post("/appointments", async (req, res) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "shantelmakwiranzou@example.com",
+      user: "shantelmakwiranzou@gmail.com",
       pass: "fxtcvojsrhfvkkhw",
     },
   });
-  const alreadyBooked = await appointmentsCollection.find(query).toArray();
+  const alreadyBooked = await appointmentCollection.find(query).toArray();
 
   if (alreadyBooked.length) {
     const message = `You already have an appointment on ${booking.appointmentDate}`;
     return res.send({ acknowledged: false, message });
   }
-  const result = await appointmentsCollection.insertOne(appointment);
+  const result = await appointmentCollection.insertOne(appointment);
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.error("Error sending email:", error);

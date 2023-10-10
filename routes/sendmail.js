@@ -10,7 +10,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 router.post("/send-email", (req, res) => {
-  const { firstName, lastName, phone, email, message } = req.body;
+  const { name, service, date, email, time } = req.body;
   const mailOptions = {
     from: "shantelmakwiranzou@gmail.com",
     to: email,
